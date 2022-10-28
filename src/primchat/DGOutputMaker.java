@@ -1,11 +1,7 @@
 package primchat;
 
 import java.io.*;
-import java.net.SocketAddress;
-import java.net.UnknownHostException;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
-import java.net.DatagramPacket;
+import java.net.*;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -82,8 +78,25 @@ public class DGOutputMaker extends Thread{
 			// partner:myname
 			// close:ppp1
 		// Nachher wird ein Datagramm erstelt und zu dem Socket vom Partner gesendet.
+		if (initialized(getSAByName(partner))){
+			String output = mtype+":"+text;
+			byte b[] = output.getBytes();
+			SocketAddress s =  getSAByName(partner);
+			if (s != null){
+				DatagramPacket packet = new DatagramPacket(b,b.length, s);
+				try {
+					mySocket.send(packet);
+				} catch (IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
+		}
+
 //TODO
 		// Anderseits druckt man Fehlermeldung.
+		else  {
+			System.out.println("Failed to establish connection");
+		}
 //TODO
 	}
 

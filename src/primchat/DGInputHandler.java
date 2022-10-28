@@ -37,12 +37,25 @@ public class DGInputHandler extends Thread{
 			String name;
 			// Ein Textnachricht von einem verbunden Partner soll einfach gedruckt werden. Format:
 			// ppp1>Hello
+
+			if (command.equals("msg")) {
+				System.out.println(myopm.getNameBySA(sendersa)+ "<"+param);
+			}
 //TODO
 			// Eine Anfrage für Verbindungaufbau soll gleich beantwortet werden,
 			// aber nur wenn es vorher nicht von dieser Seite initialisiert wurde.
 			// Partner wird verbunden.
 			// Ein Textnachricht wird auf den Bildschirm gedruckt:
 			// >partnership opened to ppp1
+
+			else if(command.equals("partner") ) {
+
+				if (!myopm.initialized(sendersa)) {
+					System.out.println(">partnership opened to " + param);
+					myopm.establishPartner(sendersa,param);
+					myopm.sendMsgToPartner("partner", param, myopm.getUsername());
+				}
+			}
 //TODO
 			// Nach einer Anfrage für Verbindungsabbau, die von einem Partner kam,
 			// wird die Partnerschaft sofort geschlossen.

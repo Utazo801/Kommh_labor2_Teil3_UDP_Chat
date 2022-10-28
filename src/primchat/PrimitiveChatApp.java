@@ -13,7 +13,7 @@ import java.net.SocketAddress;
  */
 public class PrimitiveChatApp {
 	   // Name benutzt in Partnerschaft
-	static String username = new String("Zoli");
+	static String username = new String("Szabe");
 
 	public static void main(String[] args) {
 	    try {
